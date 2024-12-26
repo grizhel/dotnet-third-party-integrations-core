@@ -21,4 +21,11 @@
 		<None Include="readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="keycloak\" />
+    <Folder Include="mongo\" />
+    <Folder Include="nlog\" />
+    <Folder Include="redis\" />
+  </ItemGroup>
+
 </Project>
