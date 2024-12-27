@@ -35,7 +35,7 @@ C:\\Users\\user\\Desktop\\Desk\\projects\\dotnet-third-party-integrations-core\\
 ## Publish Package
 
 ```bash
-dotnet nuget push .\bin\Release\GrizhlaThirdPartyIntegrationsCore.1.0.0.nupkg --api-key abcd1234  --source https://api.nuget.org/v3/index.json
+dotnet nuget push .\bin\Release\Grizhla.ThirdPartyIntegrationsCore.1.0.1.nupkg --api-key abcd1234  --source https://api.nuget.org/v3/index.json
 ```
 
 # Notes

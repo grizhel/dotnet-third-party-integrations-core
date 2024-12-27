@@ -3,65 +3,69 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Confluent.Kafka;
 using dotnet_third_party_integrations_core.kafka.models;
+using static Confluent.Kafka.ConfigPropertyNames;
 
 namespace dotnet_third_party_integrations_core.Kafka
 {
 	public static class Hermes
 	{
-		public static async Task<int> SendMessage(KafkaOptions conf, string topic, object data)
+		public static async Task SendMessageAsync(KafkaOptions conf, string topic, object data)
 		{
-			return await Task.Run(() =>
-			 {
-				 using (var p = new ProducerBuilder<Null, string>(conf.GetConfig()).Build())
-				 {
-					 p.Produce(topic, new Message<Null, string> { Value = JsonSerializer.Serialize(data) });
-				 }
-				 return 0;
-			 });
+			using (var p = new ProducerBuilder<Null, string>(conf.GetConfig()).Build())
+			{
+				await p.ProduceAsync(topic, new Message<Null, string> { Value = JsonSerializer.Serialize(data) });
+			}
 		}
 
-		public static async Task<object?> Subscribe<T>(KafkaOptions conf, string topic)
+		public static void Subscribe(KafkaOptions conf, string topic, Action<object> act)
 		{
-			return await Task.Run(() =>
+			using (var c = new ConsumerBuilder<Ignore, string>(conf.GetConfig()).Build())
 			{
-				using (var c = new ConsumerBuilder<Ignore, string>(conf.GetConfig()).Build())
+				c.Subscribe(topic);
+
+				CancellationTokenSource cts = new CancellationTokenSource();
+				Console.CancelKeyPress += (_, e) =>
 				{
-					c.Subscribe(topic);
+					e.Cancel = true;
+					cts.Cancel();
+				};
 
-					CancellationTokenSource cts = new CancellationTokenSource();
-					Console.CancelKeyPress += (_, e) =>
+				try
+				{
+					while (!cts.IsCancellationRequested)
 					{
-						e.Cancel = true;
-						cts.Cancel();
-					};
-
-					try
-					{
-						while (true)
+						try
 						{
-							try
-							{
-								var cr = c.Consume(cts.Token);
-								return JsonSerializer.Deserialize<T>(cr.Message.Value);
-							}
-							catch (ConsumeException e)
-							{
-								Console.WriteLine($"Error occured: {e.Error.Reason}");
-							}
+							var cr = c.Consume();
+							act(cr.Message.Value);
 						}
-					}
-					catch (OperationCanceledException)
-					{
-						// Ensure the consumer leaves the group cleanly and final offsets are committed.
-						c.Close();
-						return default;
+						catch (ConsumeException e)
+						{
+							Console.WriteLine($"Error occured: {e.Error.Reason}");
+						}
+						catch (Exception e)
+						{
+							Console.WriteLine($"Error occured: {e.Message}");
+						}
+						Thread.Sleep(2000);
 					}
 				}
-			});
+				catch (OperationCanceledException e)
+				{
+					c.Unsubscribe();
+					c.Close();
+				}
+				finally 
+				{
+					c.Unsubscribe();
+					c.Close();
+				}
+			}
 		}
 	}
 }
