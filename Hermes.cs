@@ -22,7 +22,7 @@ namespace dotnet_third_party_integrations_core.Kafka
 			}
 		}
 
-		public static void Subscribe(KafkaOptions conf, string topic, Action<object> act)
+		public static void Subscribe(KafkaOptions conf, string topic, Action<string> act)
 		{
 			using (var c = new ConsumerBuilder<Ignore, string>(conf.GetConfig()).Build())
 			{
