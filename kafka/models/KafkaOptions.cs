@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using Confluent.Kafka;
+using dotnet_third_party_integrations_core.Kafka;
 
 namespace dotnet_third_party_integrations_core.kafka.models;
 
@@ -22,9 +24,11 @@ public class KafkaConfig
 	public string SessionTimeoutMs { get; set; }
 
 	public string StatisticsIntervalMs { get; set; }
+
+	public string AllowAutoCreateTopics { get; set; }
 }
 
-public class KafkaOptions 
+public class KafkaOptions
 {
 	public string BootstrapServers { get; set; }
 
@@ -40,7 +44,8 @@ public class KafkaOptions
 			{ "enable.auto.offset.store", KafkaConfig.EnableAutoOffsetStore },
 			{ "group.id", KafkaConfig.GroupId },
 			{ "session.timeout.ms", KafkaConfig.SessionTimeoutMs },
-			{ "statistics.interval.ms", KafkaConfig.StatisticsIntervalMs }
+			{ "statistics.interval.ms", KafkaConfig.StatisticsIntervalMs },
+			{"allow.auto.create.topics", KafkaConfig.AllowAutoCreateTopics }
 		};
 		return config;
 	}
