@@ -19,15 +19,15 @@ sh C:\\Users\\user\\Desktop\\Desk\\projects\\dotnet-third-party-integrations-cor
 ## Test Kafka
 
 ```bash
-sh C:\\Users\\user\\Desktop\\Desk\\projects\\dotnet-third-party-integrations-core\\kafka\\bin\\kafka-topics.sh --create --topic test --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+sh C:\\Users\\user\\Desktop\\Desk\\projects\\dotnet-third-party-integrations-core\\kafka\\bin\\kafka-topics.sh --create --topic ContactIsCreated --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
 ```
 
 ```bash
-sh C:\\Users\\user\\Desktop\\Desk\\projects\\dotnet-third-party-integrations-core\\kafka\\bin\\kafka-console-producer.sh --topic test --bootstrap-server localhost:9092
+sh C:\\Users\\user\\Desktop\\Desk\\projects\\dotnet-third-party-integrations-core\\kafka\\bin\\kafka-console-producer.sh --topic ContactIsCreated --bootstrap-server localhost:9092
 ```
 
 ```bash
-C:\\Users\\user\\Desktop\\Desk\\projects\\dotnet-third-party-integrations-core\\kafka\\bin\\kafka-console-consumer.sh --topic test --bootstrap-server localhost:9092 --from-beginning
+C:\\Users\\user\\Desktop\\Desk\\projects\\dotnet-third-party-integrations-core\\kafka\\bin\\kafka-console-consumer.sh --topic ContactIsCreated --bootstrap-server localhost:9092 --from-beginning
 ```
 
 # Package

@@ -52,13 +52,15 @@ namespace dotnet_third_party_integrations_core.Kafka
 						{
 							Console.WriteLine($"Error occured: {e.Message}");
 						}
-						Thread.Sleep(2000);
+						finally
+						{
+							Thread.Sleep(2000);
+						}
 					}
 				}
 				catch (OperationCanceledException e)
 				{
-					c.Unsubscribe();
-					c.Close();
+					Console.WriteLine(e.Message);
 				}
 				finally 
 				{
