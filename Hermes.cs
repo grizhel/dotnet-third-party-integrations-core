@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Confluent.Kafka;
 using dotnet_third_party_integrations_core.kafka.models;
-using static Confluent.Kafka.ConfigPropertyNames;
+using dotnet_third_party_integrations_core.utils;
+
 
 namespace dotnet_third_party_integrations_core.Kafka
 {
@@ -18,11 +21,14 @@ namespace dotnet_third_party_integrations_core.Kafka
 		{
 			using (var p = new ProducerBuilder<Null, string>(conf.GetConfig()).Build())
 			{
-				await p.ProduceAsync(topic, new Message<Null, string> { Value = JsonSerializer.Serialize(data) });
+				await p.ProduceAsync(topic, new Message<Null, string>
+				{
+					Value = JsonSerializer.Serialize(data, TheThird.JsonSerializer.GetJsonSerializerOptions())
+				});
 			}
 		}
 
-		public static void Subscribe(KafkaOptions conf, string topic, Action<string> act)
+		public static async Task SubscribeAsync(KafkaOptions conf, string topic, Func<string, Task> act)
 		{
 			using (var c = new ConsumerBuilder<Ignore, string>(conf.GetConfig()).Build())
 			{
@@ -42,7 +48,7 @@ namespace dotnet_third_party_integrations_core.Kafka
 						try
 						{
 							var cr = c.Consume();
-							act(cr.Message.Value);
+							await act(cr.Message.Value);
 						}
 						catch (ConsumeException e)
 						{
@@ -62,7 +68,7 @@ namespace dotnet_third_party_integrations_core.Kafka
 				{
 					Console.WriteLine(e.Message);
 				}
-				finally 
+				finally
 				{
 					c.Unsubscribe();
 					c.Close();

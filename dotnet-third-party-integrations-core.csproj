@@ -10,7 +10,7 @@
     <Authors>grizhel</Authors>
     <Company>grizhla</Company>
     <PackageId>Grizhla.ThirdPartyIntegrationsCore</PackageId>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/grizhla/dotnet-third-party-integrations-core</RepositoryUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
