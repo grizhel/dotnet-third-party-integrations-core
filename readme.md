@@ -3,8 +3,10 @@
 # Kafka
 
 ## Notes
+# Notes
 
-- Terminal olarak Git Bash kullanılmalıdır.
+- The software under `kafka` directory is downloaded from official website. However, there are some fixes I implemented. You may want to download itself from `https://kafka.apache.org/downloads`
+- Please use Git Bash as terminal for Windows 10.
 
 ## Run Kafka on localhost
 
@@ -34,14 +36,5 @@ sh C:\\Users\\user\\Desktop\\Desk\\projects\\dotnet-third-party-integrations-cor
 C:\\Users\\user\\Desktop\\Desk\\projects\\dotnet-third-party-integrations-core\\kafka\\bin\\kafka-console-consumer.sh --topic ContactIsCreated --bootstrap-server localhost:9092 --from-beginning
 ```
 
-# Package
 
-## Publish Package
 
-```bash
-dotnet nuget push .\bin\Release\Grizhla.ThirdPartyIntegrationsCore.1.0.1.nupkg --api-key abcd1234  --source https://api.nuget.org/v3/index.json
-```
-
-# Notes
-
-- The software under `kafka` directory is downloaded from official website. However, there are some fixes I implemented. You may want to download itself from `https://kafka.apache.org/downloads`
