@@ -26,6 +26,8 @@ public class KafkaConfig
 	public string StatisticsIntervalMs { get; set; }
 
 	public string AllowAutoCreateTopics { get; set; }
+
+	public string TestPostfix {  get; set; }
 }
 
 public class KafkaOptions
@@ -42,11 +44,27 @@ public class KafkaOptions
 			{ "auto.offset.reset", KafkaConfig.AutoOffsetReset },
 			{ "enable.auto.commit", KafkaConfig.EnableAutoCommit },
 			{ "enable.auto.offset.store", KafkaConfig.EnableAutoOffsetStore },
-			{ "group.id", KafkaConfig.GroupId },
+			{ "group.id", KafkaConfig.GroupId + KafkaConfig.TestPostfix },
 			{ "session.timeout.ms", KafkaConfig.SessionTimeoutMs },
 			{ "statistics.interval.ms", KafkaConfig.StatisticsIntervalMs },
 			{"allow.auto.create.topics", KafkaConfig.AllowAutoCreateTopics }
 		};
 		return config;
+	}
+
+	public bool IsRunning()
+	{
+		try
+		{
+			var adminClientBuilder = new AdminClientBuilder(this.GetConfig());
+			var adminClient = adminClientBuilder.Build();
+			var topics = adminClient.ListGroups(TimeSpan.FromSeconds(5));
+			return true;
+		}
+		catch (Exception e) 
+		{ 
+			Console.WriteLine(e.Message);
+			return false;
+		}
 	}
 }

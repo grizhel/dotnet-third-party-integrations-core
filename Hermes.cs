@@ -75,5 +75,10 @@ namespace dotnet_third_party_integrations_core.Kafka
 				}
 			}
 		}
+
+		public static bool IsRunning(KafkaOptions conf)
+		{
+			return conf.IsRunning();
+		}
 	}
 }

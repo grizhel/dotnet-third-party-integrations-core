@@ -2,6 +2,10 @@
 
 # Kafka
 
+## Notes
+
+- Terminal olarak Git Bash kullanılmalıdır.
+
 ## Run Kafka on localhost
 
 ```bash
