@@ -13,11 +13,12 @@
 		<Version>1.0.4</Version>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/grizhla/dotnet-third-party-integrations-core</RepositoryUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<metadata>
 			<icon>images\icon.png</icon>
 		</metadata>
 		<ApplicationIcon>favicon.ico</ApplicationIcon>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
