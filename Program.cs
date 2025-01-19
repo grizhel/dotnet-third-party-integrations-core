@@ -1,4 +1,1 @@
-﻿void Main()
-{
-	Console.WriteLine("Done.");
-}
+﻿Console.WriteLine("Done.");

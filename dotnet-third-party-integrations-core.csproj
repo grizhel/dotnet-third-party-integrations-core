@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="Confluent.Kafka" Version="2.6.1" />
+    <PackageReference Include="Grizhla.UtilitiesCore" Version="1.0.0" />
 		<None Include="readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
