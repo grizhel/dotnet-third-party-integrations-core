@@ -6,9 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Confluent.Kafka;
-using dotnet_third_party_integrations_core.Kafka;
 
-namespace dotnet_third_party_integrations_core.kafka.models;
+namespace Grizhla.ThirdPartyIntegrationsCore.kafka.models;
 
 
 public class KafkaConfig

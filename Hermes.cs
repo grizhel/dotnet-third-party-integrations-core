@@ -9,11 +9,11 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Confluent.Kafka;
-using dotnet_third_party_integrations_core.kafka.models;
-using dotnet_utilities_core.Base.JsonUtilities;
+using Grizhla.ThirdPartyIntegrationsCore.kafka.models;
+using Grizhla.UtilitiesCore.Helpers.JsonUtilities;
 
 
-namespace dotnet_third_party_integrations_core.Kafka;
+namespace Grizhla.ThirdPartyIntegrationsCore.Kafka;
 
 public static class Hermes
 {
